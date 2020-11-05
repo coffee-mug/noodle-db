@@ -30,13 +30,28 @@ func NewDB() DB {
 	return d
 }
 
+func (d *DB) Keys() (keys []string) {
+	d.t.Walk(func(key string, value interface{}) error {
+		// debug
+		if key != "" {
+			keys = append(keys, key)
+		}
+		return nil
+	})
+	return keys
+}
+
 func (d *DB) Add(name, instructions string) (updated_value bool) {
 	log.Printf("%v", d.t)
 	return d.t.Put(name, instructions)
 }
 
 func (d *DB) Log() {
-	log.Printf("%v", d.t)
+	log.Printf("Internal memory: %v", d.t)
+	log.Println("All the keys:")
+	for _, key := range d.Keys() {
+		log.Printf("Key: %s", key)
+	}
 }
 
 func (d *DB) Commit() error {
