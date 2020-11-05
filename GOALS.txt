@@ -1,0 +1,5 @@
+- make a program that can stores recipes
+- recipes are identified by their name
+- recipes contain a block of text
+- recipe's name must be unique
+
